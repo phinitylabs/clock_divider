@@ -1,0 +1,36 @@
+The following Verilog module is intended to implement a clock divider using a 2-bit counter. It should use a synchronous, active-high reset and generate out_clk as a divided version of clk based on the counter MSB.
+However, the code contains a bug that prevents correct operation according to the specification.
+
+Task: Identify the bug and correct the RTL so that the reset behavior and clock-division behavior work as intended.
+
+Following is the buggy code:
+
+```Verilog
+module clock_divider(
+                  reset,   // input
+                  clk,     // input
+                  out_clk  // output
+                  );
+
+//port declaration
+input             reset, clk;
+output reg        out_clk;
+reg         [1:0] clk_count;
+
+always @ (posedge clk)
+   begin
+      if (!reset)
+         begin
+            clk_count <= 0;
+            out_clk   <= 0;
+         end
+      else
+         begin
+            clk_count <= clk_count + 1;
+            out_clk   <= clk_count[1];
+         end
+   end
+endmodule
+```
+
+**Important**: This environment uses Icarus Verilog for testing. Avoid using SystemVerilog Assertion (SVA) property/sequence syntax if adding assertions.
