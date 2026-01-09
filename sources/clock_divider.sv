@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module clock_divider(
                   reset,   // input
                   clk,     // input
@@ -11,7 +13,7 @@ reg         [1:0] clk_count;
 
 always @ (posedge clk)
    begin
-      if (!reset)
+      if (reset)
          begin
             clk_count <= 0;
             out_clk   <= 0;
